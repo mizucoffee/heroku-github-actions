@@ -13,8 +13,11 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+    - name: list file
+      run: ls
+      
     - name: Run a one-line script
-      run: echo Hello, world!
+      run: snap install --classic heroku
       
     - name: Run a multi-line script
       run: |
