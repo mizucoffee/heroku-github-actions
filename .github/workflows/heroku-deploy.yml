@@ -21,7 +21,7 @@ jobs:
       
     - name: Heroku login
       run: |
-        cat << EOF > ~/.netrc
+        cat <<EOF > ~/.netrc
         machine api.heroku.com
           login $HEROKU_EMAIL
           password $HEROKU_API_KEY
@@ -31,4 +31,6 @@ jobs:
         EOF
         
     - name: Heroku login check
-      run: heroku auth:token
+      run: |
+        cat ~/.netrc
+        heroku auth:token
