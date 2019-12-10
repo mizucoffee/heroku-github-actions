@@ -33,7 +33,22 @@ jobs:
           password $HEROKU_API_KEY
         EOF
         
-    - name: Heroku login check
+    - name: Configure git
+      env:
+        GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+        GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
       run: |
-        cat ~/.netrc
-        heroku auth:token
+        git config --global user.email "$GIT_EMAIL"
+        git config --global user.name "$GIT_USERNAME"
+        git config --global -l
+        
+    - name: Deploy to heroku
+      run: |
+        BASE_DIR=`pwd`
+        for dir in `\find * \( ! -path '*/.*' \) -maxdepth 0 -type d` ; do                                                                                                                                                                                                                         [master]
+         cd $BASE_DIR/$dir
+         APPNAME=`cat README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
+         heroku git:remote --app $APPNAME
+         git push heroku master
+        done
+        
