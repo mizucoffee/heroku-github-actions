@@ -13,13 +13,22 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: list file
+    - name: List file
       run: ls
       
-    - name: Run a one-line script
-      run: snap install --classic heroku
+    - name: Install heroku command
+      run: sudo snap install --classic heroku
       
-    - name: Run a multi-line script
+    - name: Heroku login
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        cat << EOF > ~/.netrc
+        machine api.heroku.com
+          login $HEROKU_EMAIL
+          password $HEROKU_API_KEY
+        machine git.heroku.com
+          login $HEROKU_EMAIL
+          password $HEROKU_API_KEY
+        EOF
+        
+    - name: Heroku login check
+      run: heroku auth:token
