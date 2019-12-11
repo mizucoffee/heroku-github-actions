@@ -41,13 +41,13 @@ jobs:
       run: |
         for DIR in `\find * \( ! -path '*/.*' \) -maxdepth 0 -type d` ; do
           APPNAME=`cat $DIR/README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
-          CMD=`grep -E "^\\$" $DIR/README.md | sed -e "s/\\$\ //"`
+          COMMANDS=`grep -E "^\\$" $DIR/README.md | sed -e "s/\\$\ //"`
           
           heroku git:remote --app $APPNAME --remote $DIR
           git subtree push --prefix $DIR $DIR master
           
-          echo $CMD | while read cmd ; do
-            heroku run $cmd --app $APPNAME --remote $DIR
+          echo $COMMANDS | while read COMMAND ; do
+            heroku run $COMMAND --app $APPNAME --remote $DIR
           done
         done
 
