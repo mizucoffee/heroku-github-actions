@@ -44,7 +44,7 @@ jobs:
 
     - name: Deploy to heroku
       env:
-        IFS: "\n"
+        IFS: $'\n'
       run: |
         BASE_DIR=`pwd`
         for dir in `\find * \( ! -path '*/.*' \) -maxdepth 0 -type d` ; do
