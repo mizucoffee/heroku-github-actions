@@ -41,8 +41,8 @@ jobs:
     - name: Deploy to heroku
       run: |
         for DIR in `\find * \( ! -path '*/.*' \) -maxdepth 0 -type d` ; do
-          APPNAME=`cat $dir/README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
-          CMD=`grep -E "^\\$" $dir/README.md | sed -e "s/\\$\ //"`
+          APPNAME=`cat $DIR/README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
+          CMD=`grep -E "^\\$" $DIR/README.md | sed -e "s/\\$\ //"`
           
           heroku git:remote --app $APPNAME --remote $DIR
           git subtree push --prefix $DIR $DIR master
