@@ -6,5 +6,4 @@ appname: mizucoffee-count1
 
 ```bash
 $ rake db:migrate
-$ test
 ```
