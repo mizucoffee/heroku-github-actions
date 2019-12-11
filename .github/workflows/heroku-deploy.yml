@@ -46,9 +46,8 @@ jobs:
       run: |
         BASE_DIR=`pwd`
         for dir in `\find * \( ! -path '*/.*' \) -maxdepth 0 -type d` ; do
-         cd $BASE_DIR/$dir
-         APPNAME=`cat README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
-         heroku git:remote --app $APPNAME
-         git push heroku master
+         APPNAME=`cat $dir/README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
+         heroku git:remote --app $APPNAME --remote $dir
+         git subtree push --prefix $dir $dir master
         done
         
