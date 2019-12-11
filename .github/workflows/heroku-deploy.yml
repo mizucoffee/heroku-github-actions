@@ -49,7 +49,7 @@ jobs:
           APPNAME=`cat $dir/README.md | grep appname | sed -e "s/appname:\ *//" -e "s/ *$//"`
           heroku git:remote --app $APPNAME --remote $dir
           git subtree push --prefix $dir $dir master
-          grep -E "^\\$" $dir/README.md | sed -e s/\\$\ //) | while read cmd
+          grep -E "^\\$" $dir/README.md | sed -e s/\\$\ / | while read cmd
           do
             heroku run $cmd --app $APPNAME --remote $dir
           done
