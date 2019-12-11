@@ -43,6 +43,8 @@ jobs:
         git config --global -l
 
     - name: Deploy to heroku
+      env:
+        IFS: "\n"
       run: |
         BASE_DIR=`pwd`
         for dir in `\find * \( ! -path '*/.*' \) -maxdepth 0 -type d` ; do
